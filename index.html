@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Für Papa ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-orange: #f65306;
+      --dark-bg: #1b3353;
+      --light-text: #f0f0f0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .card {
+      background-color: #2d2d2d;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px var(--main-orange);
+      max-width: 500px;
+    }
+
+    h1 {
+      color: var(--main-orange);
+      font-size: 2rem;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .heart {
+      font-size: 2.5rem;
+      animation: pulse 1.5s infinite;
+      color: var(--main-orange);
+      margin-bottom: 1rem;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+      }
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heart">❤️</div>
+    <h1>Happy Father's Day, Papa</h1>
+    <div class="message">
+      Mein Leben ohne dich?<br>
+      <code>Nur Bugs und Exceptions.</code><br><br>
+      Danke, dass du immer <code>debuggst()</code>, wenns brennt.<br>
+      <strong>Alles Gute zum Vatertag!</strong>
+    </div>
+  </div>
+
+  <div class="footer">
+    Von deinem Lieblings-Kind 🧡
+  </div>
+</body>
+</html>
