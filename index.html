@@ -2,55 +2,39 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Für Papa ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
   <style>
     :root {
       --main-orange: #f65306;
       --dark-bg: #1b3353;
-      --light-text: #f0f0f0;
+      --terminal-bg: #1e1e1e;
+      --light-text: #eee;
     }
-
     body {
       margin: 0;
+      background: var(--dark-bg);
       font-family: 'Fira Code', monospace;
-      background-color: var(--dark-bg);
       color: var(--light-text);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       padding: 2rem;
       text-align: center;
+      user-select: none;
     }
-
-    .card {
-      background-color: #2d2d2d;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px var(--main-orange);
-      max-width: 500px;
-    }
-
-    h1 {
-      color: var(--main-orange);
-      font-size: 2rem;
-    }
-
-    .message {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-    }
-
     .heart {
-      font-size: 2.5rem;
-      animation: pulse 1.5s infinite;
+      font-size: 4rem;
       color: var(--main-orange);
+      animation: pulse 1.8s ease-in-out infinite;
       margin-bottom: 1rem;
+      text-shadow:
+        0 0 8px var(--main-orange),
+        0 0 20px var(--main-orange);
     }
-
     @keyframes pulse {
       0%, 100% {
         transform: scale(1);
@@ -58,31 +42,104 @@
       }
       50% {
         transform: scale(1.2);
-        opacity: 0.6;
+        opacity: 0.7;
       }
     }
-
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #888;
+    h1 {
+      color: var(--main-orange);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      font-size: 2.2rem;
+    }
+    button {
+      background: var(--main-orange);
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #121212;
+      font-weight: 700;
+      box-shadow:
+        0 4px 8px rgba(246, 83, 6, 0.6);
+      transition: background 0.3s ease;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+    button:hover {
+      background: #e04a00;
+    }
+    .terminal {
+      background: var(--terminal-bg);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(246, 83, 6, 0.7);
+      max-width: 480px;
+      width: 100%;
+      padding: 1.5rem;
+      font-size: 1.1rem;
+      min-height: 150px;
+      color: var(--main-orange);
+      overflow-y: auto;
+      font-family: 'Fira Code', monospace;
+      white-space: pre-wrap;
+      text-align: left;
+      user-select: text;
+    }
+    .code-line {
+      margin: 0.3rem 0;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="heart">❤️</div>
-    <h1>Happy Father's Day, Papa</h1>
-    <div class="message">
-      Mein Leben ohne dich?<br>
-      <code>Nur Bugs und Exceptions.</code><br><br>
-      Danke, dass du immer <code>debuggst()</code>, wenns brennt.<br>
-      <strong>Alles Gute zum Vatertag!</strong>
-    </div>
-  </div>
+  <div class="heart">❤️</div>
+  <h1>Happy Father's Day, Papa</h1>
+  <button id="runBtn">Run Code</button>
+  <div class="terminal" id="terminal"></div>
 
-  <div class="footer">
-    Von deinem Lieblings-Kind 🧡
-  </div>
+  <script>
+    const messageLines = [
+      "Mein Leben ohne dich?",
+      "Nur Bugs und Exceptions.",
+      "Danke, dass du immer debuggst(), wenn’s brennt.",
+      "Alles Gute zum Vatertag!"
+    ];
+
+    const terminal = document.getElementById('terminal');
+    const runBtn = document.getElementById('runBtn');
+
+    // Function to simulate typing one line letter-by-letter
+    function typeLine(text, delay = 40) {
+      return new Promise((resolve) => {
+        let i = 0;
+        const lineElem = document.createElement('div');
+        lineElem.className = 'code-line';
+        terminal.appendChild(lineElem);
+
+        function typeChar() {
+          if (i < text.length) {
+            lineElem.textContent += text[i];
+            i++;
+            setTimeout(typeChar, delay);
+          } else {
+            resolve();
+          }
+        }
+        typeChar();
+      });
+    }
+
+    // Clear terminal and run typing animation
+    async function runCode() {
+      runBtn.disabled = true;
+      terminal.textContent = '';
+      for (const line of messageLines) {
+        await typeLine(line);
+      }
+      runBtn.disabled = false;
+    }
+
+    runBtn.addEventListener('click', runCode);
+  </script>
 </body>
 </html>
